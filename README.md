@@ -8,8 +8,8 @@ if you want to change the maximum connection each web server can accept:
 go to program arguments, enter the number you want to assign 
 or 
 run from cmdline as
-$java TestServer <maxServerConnections>
-(Usage: java TestServer <maxServerConnections>)
+$java TestServer maxServerConnections
+(Usage: java TestServer maxServerConnections)
 
 
 II) Scripts folder added, it will however not actually do anything if Tomcat is not configured locally.
