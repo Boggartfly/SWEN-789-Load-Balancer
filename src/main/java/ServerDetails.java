@@ -142,7 +142,6 @@ public class ServerDetails extends Observable {
         }
 
         maxConnections = maxConnections + (maxServerConnections * portsUp);
-
     }
 
 
