@@ -204,7 +204,7 @@ public class ServerDetails extends Observable {
 
 
     /**
-     * annouce changes made to the server, to all observers
+     * announce changes made to the server, to all observers
      */
     private void announceChange() {
         super.setChanged();
