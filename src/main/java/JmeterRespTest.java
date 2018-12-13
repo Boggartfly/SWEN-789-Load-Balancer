@@ -1,25 +1,36 @@
 package main.java;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
-
 import java.net.Socket;
+import java.util.Arrays;
 
 public class JmeterRespTest {
 
     public static void main(String[] args) {
-        try {
-            ServerSocket serverSocket = new ServerSocket(8080);
 
-            System.out.println("server up");
-            Socket client = serverSocket.accept();
+            try {
+                ServerSocket serverSock = new ServerSocket(8080);
+                while(true) {
+                    Socket sock = serverSock.accept();
 
-            System.out.println("here");
+                    InputStream sis = sock.getInputStream();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(sis));
+                    String request = br.readLine();
+                    String[] requestParam = request.split(" ");
+                    System.out.println("Request Headers: "+Arrays.toString(requestParam));
+                    PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                    // Response is written as HTML
+                    out.write("<html>\n" + "<head><title>Test Page</title></head><body>Hello World!</body></html>");
+                    br.close();
+                    out.close();
+                    sock.close();
+                }
+            } catch (IOException e) {
+                System.out.println(Arrays.toString(e.getStackTrace()));
+                // Just press stop in intellij to stop server
+            }
 
     }
-
 }
