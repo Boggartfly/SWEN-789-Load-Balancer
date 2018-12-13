@@ -129,6 +129,9 @@ public class ServerDetails extends Observable {
                     Runtime.getRuntime().exec("src/Scripts/" +
                             "start_instance_" + i +
                             ".sh");
+                    Runtime.getRuntime().exec("src/Scripts/" +
+                            "stop_instance_" + i +
+                            ".bat");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -160,6 +163,9 @@ public class ServerDetails extends Observable {
                         Runtime.getRuntime().exec("src/Scripts/" +
                                 "stop_instance_" + i +
                                 ".sh");
+                        Runtime.getRuntime().exec("src/Scripts/" +
+                                "stop_instance_" + i +
+                                ".bat");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
