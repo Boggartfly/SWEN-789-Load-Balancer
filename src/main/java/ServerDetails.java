@@ -126,12 +126,13 @@ public class ServerDetails extends Observable {
             if (!serverConn.containsKey(i)){
                 serverConn.put(i, 0);
                 try {
+                    if(System.getProperty("os.name").equals("Mac OS X")){
                     Runtime.getRuntime().exec("src/Scripts/" +
                             "start_instance_" + i +
-                            ".sh");
+                            ".sh");} else {
                     Runtime.getRuntime().exec("src/Scripts/" +
                             "stop_instance_" + i +
-                            ".bat");
+                            ".bat");}
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
