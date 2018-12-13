@@ -3,9 +3,8 @@ package main.java;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.io.PrintWriter;
+import java.net.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -172,6 +171,29 @@ public class TestServer implements Observer {
                         new InputStreamReader(socket.getInputStream()));
 
                 String inputLine;
+
+                //OLD CODE/////
+                /*while ((inputLine = in.readLine()) != null) {
+                    //do nothing
+                }
+
+                if ((inputLine = in.readLine()) == null){
+                    throw new SocketException("client exited");
+                }*/
+
+
+                //NEW CODE/////
+                //read input from client
+                inputLine = in.readLine();
+                String[] requestParam = inputLine.split(" ");
+
+                PrintWriter out = new PrintWriter(socket.getOutputStream(),
+                        true);
+
+                //send html output from the webserver client is assigned to
+                StringBuilder urlData = urlReader(port);
+                out.write(urlData.toString());
+
                 while ((inputLine = in.readLine()) != null) {
                     //do nothing
                 }
@@ -180,12 +202,63 @@ public class TestServer implements Observer {
                     throw new SocketException("client exited");
                 }
 
+
+
             } catch (SocketException e){
                 //remove the client from its assigned web server
                 serverDetails.decPortConnections(port);
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+//                try {
+//                    socket.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
+        }
+
+
+        /**
+         * This method reads from the url and returns html content to client
+         * @param port the port from where the html response is sent to the
+         *             client
+         * @return the html webpage in StringBuilder format
+         */
+        private StringBuilder urlReader (int port){
+            BufferedReader br = null;
+            StringBuilder sb = new StringBuilder();
+            try {
+
+                URL url = new URL("http://localhost:" + port + "/");
+                br = new BufferedReader(new InputStreamReader(url.openStream()));
+
+                String line;
+
+                sb = new StringBuilder();
+
+                while ((line = br.readLine()) != null) {
+
+                    sb.append(line);
+                    sb.append(System.lineSeparator());
+                }
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return sb;
         }
     }
 
