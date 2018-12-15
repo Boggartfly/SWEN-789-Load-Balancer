@@ -99,7 +99,7 @@ public class TestServer implements Observer {
             //if each server can only handle 10 connections for example, the
             // total connections that can be made are 60
             int omgTooManyConnections =
-                    maxServerConnections * serverDetails.getServersOnNetworkSize();
+                    (maxServerConnections * serverDetails.getServersOnNetworkSize())+1;
 
 
             //Thread that handles incoming client connections and puts them
