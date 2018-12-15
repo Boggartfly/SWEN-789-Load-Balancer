@@ -237,11 +237,7 @@ public class TestServer implements Observer {
                 out.flush();
                 out.close();
 
-            } catch (SocketException e) {
-                e.getMessage();
             } catch (IOException e) {
-                e.getMessage();
-            } catch (Exception e){
                 e.getMessage();
             } finally {
                 try {
@@ -280,11 +276,8 @@ public class TestServer implements Observer {
                     sb.append(System.lineSeparator());
                 }
 
-            } catch (MalformedURLException e) {
+            }catch (IOException e) {
                 e.getMessage();
-            } catch (IOException e) {
-                e.getMessage();
-            }catch (Exception e){e.getMessage();
             } finally {
 
                 if (br != null) {
