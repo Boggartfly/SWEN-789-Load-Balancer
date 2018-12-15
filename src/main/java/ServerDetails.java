@@ -49,7 +49,6 @@ public class ServerDetails extends Observable {
         serversOnNetwork = new TreeSet<Integer>();
         serversOnNetwork.add(8180);
         serversOnNetwork.add(8280);
-        serversOnNetwork.add(8380);
         serversOnNetwork.add(8480);
         serversOnNetwork.add(8580);
         serversOnNetwork.add(8680);
@@ -161,12 +160,13 @@ public class ServerDetails extends Observable {
             if(serverConn.containsKey(i)) {
                 if (serverConn.get(i) == 0) {
                     try {
+                        if(System.getProperty("os.name").equals("Mac OS X")){
                         Runtime.getRuntime().exec("src/Scripts/" +
                                 "stop_instance_" + i +
-                                ".sh");
+                                ".sh");} else {
                         Runtime.getRuntime().exec("src/Scripts/" +
                                 "stop_instance_" + i +
-                                ".bat");
+                                ".bat");}
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
