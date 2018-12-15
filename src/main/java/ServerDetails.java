@@ -101,7 +101,7 @@ public class ServerDetails extends Observable {
      * @param port web server client is connected to
      */
     public void incPortConnections(int port) {
-        int count = serverConn.containsKey(port) ? serverConn.get(port) : 0;
+        int count = serverConn.getOrDefault(port, 0);
         serverConn.put(port, count + 1);
         incTotalConnections();
 
