@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Sets up the server
  *
  * @author Kirtana Suresh @ RIT SE
+ * @author Parth Sane @ RIT SE
  */
 @SuppressWarnings("FieldCanBeLocal")
 public class TestServer implements Observer {

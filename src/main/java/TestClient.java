@@ -10,6 +10,7 @@ import java.net.Socket;
  * disconnect it
  *
  * @author Kirtana Suresh @ RIT SE
+ * @author Parth Sane @ RIT SE
  */
 @SuppressWarnings("StatementWithEmptyBody")
 class TestClient {

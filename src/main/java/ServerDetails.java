@@ -9,6 +9,7 @@ import java.util.TreeSet;
  * Handles server details
  *
  * @author Kirtana Suresh @ RIT SE
+ * @author Parth Sane @ RIT SE
  */
 class ServerDetails extends Observable {
 
