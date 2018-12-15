@@ -2,6 +2,7 @@ package main.java;
 
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -220,7 +221,7 @@ public class TestServer implements Observer {
                 BufferedWriter out = new BufferedWriter(
                         new OutputStreamWriter(
                                 new BufferedOutputStream(clientSocket.getOutputStream()),
-                                "UTF-8")
+                                StandardCharsets.UTF_8)
                 );
 
                 //sleep for 5 secs in case server is being brought up
