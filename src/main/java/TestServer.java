@@ -194,7 +194,7 @@ public class TestServer implements Observer {
          * @param clientSocket client clientSocket
          * @param port   assigned web server
          */
-        public ClientHandler(Socket clientSocket, Integer port) {
+        ClientHandler(Socket clientSocket, Integer port) {
             this.clientSocket = clientSocket;
             this.port = port;
             serverDetails.incPortConnections(port);
