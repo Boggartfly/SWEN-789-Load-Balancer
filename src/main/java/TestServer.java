@@ -214,7 +214,7 @@ public class TestServer implements Observer {
                 //read client input
                 InputStream in = clientSocket.getInputStream();
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
-                String line = null;
+                String line;
                 while ((line = br.readLine()) != null) {
                     if (line.isEmpty()) {
                         break;
