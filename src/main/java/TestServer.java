@@ -128,7 +128,6 @@ public class TestServer implements Observer {
                     //hand over the web page from respective web server port,
                     // to client
                     new ClientHandler(clients.poll(), port).start();
-                    serverDetails.incPortConnections(port);
 
 
                     //check if ports need to be scaled
@@ -197,6 +196,7 @@ public class TestServer implements Observer {
         public ClientHandler(Socket clientSocket, Integer port) {
             this.clientSocket = clientSocket;
             this.port = port;
+            serverDetails.incPortConnections(port);
         }
 
 
