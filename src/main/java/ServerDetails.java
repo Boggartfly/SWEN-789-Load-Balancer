@@ -9,14 +9,15 @@ import java.util.TreeSet;
  * Handles server details
  *
  * @author Kirtana Suresh @ RIT SE
+ * @author Parth Sane @ RIT SE
  */
-public class ServerDetails extends Observable {
+class ServerDetails extends Observable {
 
     /**
      * contains servers that are up, with their respective number of
      * client connections
      */
-    private TreeMap<Integer,Integer> serverConn;
+    private final TreeMap<Integer,Integer> serverConn;
 
     /**
      * the number of clients connected
@@ -32,21 +33,21 @@ public class ServerDetails extends Observable {
     /**
      * the servers configured on the network
      */
-    private TreeSet<Integer> serversOnNetwork;
+    private final TreeSet<Integer> serversOnNetwork;
 
     /**
      * the number of connections a single server can handle
      */
-    public int maxServerConnections;
+    private final int maxServerConnections;
 
     /**
      * initialise
      * @param maxServerConnections the number of connections a single server can handle
      */
-    public ServerDetails(int maxServerConnections) {
+    ServerDetails(int maxServerConnections) {
 
         //6 web servers on the network, excluding load balancer
-        serversOnNetwork = new TreeSet<Integer>();
+        serversOnNetwork = new TreeSet<>();
         serversOnNetwork.add(8180);
         serversOnNetwork.add(8280);
         serversOnNetwork.add(8480);
@@ -62,25 +63,25 @@ public class ServerDetails extends Observable {
 
     }
 
-    public int getServersOnNetworkSize() {
+    int getServersOnNetworkSize() {
         return serversOnNetwork.size();
     }
 
-    public float getMaxConnections() {
+    float getMaxConnections() {
         return maxConnections;
     }
 
-    public void decTotalConnections() {
+    private void decTotalConnections() {
         this.totalConnections -= 1;
 
     }
 
-    public void incTotalConnections() {
+    private void incTotalConnections() {
         this.totalConnections += 1;
 
     }
 
-    public int getTotalConnections() {
+    int getTotalConnections() {
         return totalConnections;
     }
 
@@ -88,8 +89,8 @@ public class ServerDetails extends Observable {
      * if a client exits, remove the connection from the web server
      * @param port web server client is connected to
      */
-    public void decPortConnections(int port) {
-        int count = serverConn.containsKey(port) ? serverConn.get(port) : 0;
+    void decPortConnections(int port) {
+        int count = serverConn.getOrDefault(port, 0);
         serverConn.put(port, count - 1);
         decTotalConnections();
 
@@ -100,8 +101,8 @@ public class ServerDetails extends Observable {
      * if a client connects, add the connection to the web server
      * @param port web server client is connected to
      */
-    public void incPortConnections(int port) {
-        int count = serverConn.containsKey(port) ? serverConn.get(port) : 0;
+    void incPortConnections(int port) {
+        int count = serverConn.getOrDefault(port, 0);
         serverConn.put(port, count + 1);
         incTotalConnections();
 
@@ -109,14 +110,14 @@ public class ServerDetails extends Observable {
 
     }
 
-    public TreeMap<Integer, Integer> getNumberOfConnections() {
+    TreeMap<Integer, Integer> getNumberOfConnections() {
         return serverConn;
     }
 
     /**
      * starts 1 server everytime 75% of total capacity is reached
      */
-    public void scaleUp() {
+    void scaleUp() {
         int count = 0;
         int portsUp = 0;
 
@@ -151,7 +152,7 @@ public class ServerDetails extends Observable {
     /**
      * removes 1 unused server everytime 18.75% of total capacity is used
      */
-    public void scaleDown() {
+    void scaleDown() {
         int count = 0;
         int portsDown = 0;
 
@@ -189,7 +190,7 @@ public class ServerDetails extends Observable {
      * checks for available port/web server
      * @return port of the webserver which has space to accomodate a client
      */
-    public int whichPortAvailable(){
+    int whichPortAvailable(){
 
         int port = 0;
         for (Integer i:
@@ -201,8 +202,6 @@ public class ServerDetails extends Observable {
             } else if (j == 0) {
                 port = i;
                 break;
-            } else {
-                continue;
             }
         }
         return port;

@@ -11,13 +11,15 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Sets up the server
  *
  * @author Kirtana Suresh @ RIT SE
+ * @author Parth Sane @ RIT SE
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class TestServer implements Observer {
 
     /**
      * Server details
      */
-    private ServerDetails serverDetails;
+    private final ServerDetails serverDetails;
 
     /**
      * If load increases above it, scale up
@@ -39,7 +41,7 @@ public class TestServer implements Observer {
     /**
      * Stores the client connections in queue until serviced
      */
-    private ConcurrentLinkedQueue<Socket> clients;
+    private final ConcurrentLinkedQueue<Socket> clients;
 
 
     /**
@@ -48,7 +50,7 @@ public class TestServer implements Observer {
      * @param maxServerConnections the number of connections a single server
      *                             can handle
      */
-    public TestServer(int maxServerConnections) {
+    private TestServer(int maxServerConnections) {
         this.serverDetails = new ServerDetails(maxServerConnections);
         this.clients = new ConcurrentLinkedQueue<>();
         initializeView();
@@ -89,18 +91,19 @@ public class TestServer implements Observer {
      * @param maxServerConnections the number of connections a single server
      *                             can handle
      */
+    @SuppressWarnings("InfiniteLoopStatement")
     private void runServer(int maxServerConnections) {
 
         try {
             ServerSocket serverSocket = new ServerSocket(8080);
             System.out.println("The load balancer is running.");
-            int port = 8180;
+            int port;
 
             //only 6 servers available on network
             //if each server can only handle 10 connections for example, the
             // total connections that can be made are 60
             int omgTooManyConnections =
-                    maxServerConnections * serverDetails.getServersOnNetworkSize();
+                    (maxServerConnections * serverDetails.getServersOnNetworkSize())+1;
 
 
             //Thread that handles incoming client connections and puts them
@@ -180,12 +183,12 @@ public class TestServer implements Observer {
         /**
          * client clientSocket
          */
-        private Socket clientSocket;
+        private final Socket clientSocket;
 
         /**
          * web server the client is assigned to by the load balancer
          */
-        private Integer port;
+        private final Integer port;
 
 
         /**

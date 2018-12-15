@@ -4,13 +4,19 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
-
+/**
+ * Testing file for JMeter responses
+ *
+ * @author Kirtana Suresh @ RIT SE
+ * @author Parth Sane @ RIT SE
+ */
 public class JmeterRespTest {
 
     public static void main(String[] args) {
 
             try {
                 ServerSocket serverSock = new ServerSocket(8080);
+                //noinspection InfiniteLoopStatement
                 while(true) {
                     Socket sock = serverSock.accept();
 
