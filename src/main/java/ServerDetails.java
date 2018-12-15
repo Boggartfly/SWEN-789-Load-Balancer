@@ -37,7 +37,7 @@ public class ServerDetails extends Observable {
     /**
      * the number of connections a single server can handle
      */
-    public int maxServerConnections;
+    private int maxServerConnections;
 
     /**
      * initialise
@@ -70,12 +70,12 @@ public class ServerDetails extends Observable {
         return maxConnections;
     }
 
-    public void decTotalConnections() {
+    private void decTotalConnections() {
         this.totalConnections -= 1;
 
     }
 
-    public void incTotalConnections() {
+    private void incTotalConnections() {
         this.totalConnections += 1;
 
     }
