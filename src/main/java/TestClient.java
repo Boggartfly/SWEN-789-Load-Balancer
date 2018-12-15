@@ -11,6 +11,7 @@ import java.net.Socket;
  *
  * @author Kirtana Suresh @ RIT SE
  */
+@SuppressWarnings("StatementWithEmptyBody")
 class TestClient {
     public static void main(String[] args) {
         try {

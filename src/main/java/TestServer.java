@@ -2,6 +2,7 @@ package main.java;
 
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -11,12 +12,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  *
  * @author Kirtana Suresh @ RIT SE
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class TestServer implements Observer {
 
     /**
      * Server details
      */
-    private ServerDetails serverDetails;
+    private final ServerDetails serverDetails;
 
     /**
      * If load increases above it, scale up
@@ -38,7 +40,7 @@ public class TestServer implements Observer {
     /**
      * Stores the client connections in queue until serviced
      */
-    private ConcurrentLinkedQueue<Socket> clients;
+    private final ConcurrentLinkedQueue<Socket> clients;
 
 
     /**
@@ -47,7 +49,7 @@ public class TestServer implements Observer {
      * @param maxServerConnections the number of connections a single server
      *                             can handle
      */
-    public TestServer(int maxServerConnections) {
+    private TestServer(int maxServerConnections) {
         this.serverDetails = new ServerDetails(maxServerConnections);
         this.clients = new ConcurrentLinkedQueue<>();
         initializeView();
@@ -88,6 +90,7 @@ public class TestServer implements Observer {
      * @param maxServerConnections the number of connections a single server
      *                             can handle
      */
+    @SuppressWarnings("InfiniteLoopStatement")
     private void runServer(int maxServerConnections) {
 
         try {
@@ -179,12 +182,12 @@ public class TestServer implements Observer {
         /**
          * client clientSocket
          */
-        private Socket clientSocket;
+        private final Socket clientSocket;
 
         /**
          * web server the client is assigned to by the load balancer
          */
-        private Integer port;
+        private final Integer port;
 
 
         /**
@@ -193,7 +196,7 @@ public class TestServer implements Observer {
          * @param clientSocket client clientSocket
          * @param port   assigned web server
          */
-        public ClientHandler(Socket clientSocket, Integer port) {
+        ClientHandler(Socket clientSocket, Integer port) {
             this.clientSocket = clientSocket;
             this.port = port;
             serverDetails.incPortConnections(port);
@@ -220,7 +223,7 @@ public class TestServer implements Observer {
                 BufferedWriter out = new BufferedWriter(
                         new OutputStreamWriter(
                                 new BufferedOutputStream(clientSocket.getOutputStream()),
-                                "UTF-8")
+                                StandardCharsets.UTF_8)
                 );
 
                 //sleep for 5 secs in case server is being brought up
@@ -236,11 +239,7 @@ public class TestServer implements Observer {
                 out.flush();
                 out.close();
 
-            } catch (SocketException e) {
-                e.getMessage();
             } catch (IOException e) {
-                e.getMessage();
-            } catch (Exception e){
                 e.getMessage();
             } finally {
                 try {
@@ -279,11 +278,8 @@ public class TestServer implements Observer {
                     sb.append(System.lineSeparator());
                 }
 
-            } catch (MalformedURLException e) {
-                e.getMessage();
             } catch (IOException e) {
                 e.getMessage();
-            }catch (Exception e){e.getMessage();
             } finally {
 
                 if (br != null) {

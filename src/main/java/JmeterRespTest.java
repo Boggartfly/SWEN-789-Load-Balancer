@@ -11,6 +11,7 @@ public class JmeterRespTest {
 
             try {
                 ServerSocket serverSock = new ServerSocket(8080);
+                //noinspection InfiniteLoopStatement
                 while(true) {
                     Socket sock = serverSock.accept();
 
