@@ -97,7 +97,7 @@ public class TestServer implements Observer {
         try {
             ServerSocket serverSocket = new ServerSocket(8080);
             System.out.println("The load balancer is running.");
-            int port = 8180;
+            int port;
 
             //only 6 servers available on network
             //if each server can only handle 10 connections for example, the
