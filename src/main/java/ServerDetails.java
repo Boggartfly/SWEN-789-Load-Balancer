@@ -63,7 +63,7 @@ class ServerDetails extends Observable {
 
     }
 
-    int getServersOnNetworkSize() {
+    public int getServersOnNetworkSize() {
         return serversOnNetwork.size();
     }
 
@@ -190,7 +190,7 @@ class ServerDetails extends Observable {
      * checks for available port/web server
      * @return port of the webserver which has space to accomodate a client
      */
-    int whichPortAvailable(){
+    public int whichPortAvailable(){
 
         int port = 0;
         for (Integer i:

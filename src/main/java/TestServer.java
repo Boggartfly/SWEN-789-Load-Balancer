@@ -253,6 +253,19 @@ public class TestServer implements Observer {
             }
         }
 
+        /**
+         * A simple helper for the url reader. Reads from a web server only if
+         * it is healthy.
+         * @param port needs to be checked for availability
+         * @return whether port is up or down
+         */
+        private boolean available(int port) {
+            try (Socket ignored = new Socket("localhost", port)) {
+                return true;
+            } catch (IOException ignored) {
+                return false;
+            }
+        }
 
         /**
          * This method reads from the url and returns html content to client
@@ -262,8 +275,23 @@ public class TestServer implements Observer {
          * @return the html webpage in StringBuilder format
          */
         private StringBuilder urlReader(int port) {
+
+
             BufferedReader br = null;
             StringBuilder sb = new StringBuilder();
+
+            //return if no ports are up on the network
+            if(!available(port)){
+                port = serverDetails.whichPortAvailable();
+                if (port == 0){
+                    sb = new StringBuilder("port not available! Please visit " +
+                            "us later!");
+                    System.out.println("No available web servers on network!");
+                    return sb;
+                }
+            }
+
+
             try {
 
                 URL url = new URL("http://localhost:" + port + "/");
