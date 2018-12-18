@@ -288,7 +288,6 @@ public class TestServer implements Observer {
                 if (port == 0){
                     sb = new StringBuilder("port not available! Please visit " +
                             "us later!");
-                    System.out.println("No available web servers on network!");
                     return sb;
                 }
             }
