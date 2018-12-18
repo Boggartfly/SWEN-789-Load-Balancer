@@ -149,6 +149,8 @@ public class TestServer implements Observer {
 
         } catch (Exception e) {
             System.out.println("Server going down");
+            System.out.println("//Trying restart");
+            runServer(maxServerConnections);
             e.printStackTrace();
         } finally {
             System.out.println("load balancer is down");
