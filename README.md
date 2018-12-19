@@ -1,6 +1,7 @@
 # SWEN-789-Load-Balancer
 Project For SWEN-789 Fall 2018
-
+## Authors: Parth Sane and Kirtana Suresh ##
+## Steps To Run Project ##
 I) To run the project simply run TestServer.java
 It will take maximum connection each web server can accept as 10, by default
 
